@@ -13,13 +13,13 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TimeCounterControllerTest {
+class TimeCounterControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void shouldShowPage() throws Exception {
+    void shouldShowPage() throws Exception {
         this.mockMvc.perform(get("/time-counter")).andDo(print()).andExpect(status().isOk())
                 .andExpect(view().name("time.counter/home"))
                 .andExpect(model().attributeExists("dto"))
@@ -27,7 +27,7 @@ public class TimeCounterControllerTest {
     }
 
     @Test
-    public void add1921_1059() throws Exception {
+    void add1921_1059() throws Exception {
         this.mockMvc
                 .perform(post("/time-counter")
                         .param("time", "19:21")
@@ -38,7 +38,7 @@ public class TimeCounterControllerTest {
     }
 
     @Test
-    public void add0000_0230() throws Exception {
+    void add0000_0230() throws Exception {
         this.mockMvc
                 .perform(post("/time-counter")
                         .param("time", "00:00")
@@ -49,7 +49,7 @@ public class TimeCounterControllerTest {
     }
 
     @Test
-    public void add0145_0015() throws Exception {
+    void add0145_0015() throws Exception {
         this.mockMvc
                 .perform(post("/time-counter")
                         .param("time", "01:45")
@@ -60,7 +60,7 @@ public class TimeCounterControllerTest {
     }
 
     @Test
-    public void sub0015_0115() throws Exception {
+    void sub0015_0115() throws Exception {
         this.mockMvc
                 .perform(post("/time-counter")
                         .param("time", "00:15")
@@ -71,7 +71,7 @@ public class TimeCounterControllerTest {
     }
 
     @Test
-    public void sub1923_0111() throws Exception {
+    void sub1923_0111() throws Exception {
         this.mockMvc
                 .perform(post("/time-counter")
                         .param("time", "19:23")
@@ -82,7 +82,7 @@ public class TimeCounterControllerTest {
     }
 
     @Test
-    public void sub2323_100100() throws Exception {
+    void sub2323_100100() throws Exception {
         this.mockMvc
                 .perform(post("/time-counter")
                         .param("time", "23:23")

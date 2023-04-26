@@ -16,13 +16,13 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class DayCounterControllerTest {
+class DayCounterControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void shouldShowPage() throws Exception {
+    void shouldShowPage() throws Exception {
         this.mockMvc.perform(get("/day-counter")).andDo(print()).andExpect(status().isOk())
                 .andExpect(view().name("day.counter/home"))
                 .andExpect(model().attributeExists("days"))
@@ -30,7 +30,7 @@ public class DayCounterControllerTest {
     }
 
     @Test
-    public void sundayPlus1() throws Exception {
+    void sundayPlus1() throws Exception {
         this.mockMvc
                 .perform(post("/day-counter")
                         .param("day", "Sunday")
@@ -39,7 +39,7 @@ public class DayCounterControllerTest {
     }
 
     @Test
-    public void wednesdayPlus100() throws Exception {
+    void wednesdayPlus100() throws Exception {
         this.mockMvc
                 .perform(post("/day-counter")
                         .param("day", "Wednesday")
@@ -48,7 +48,7 @@ public class DayCounterControllerTest {
     }
 
     @Test
-    public void saturdayMin60() throws Exception {
+    void saturdayMin60() throws Exception {
         this.mockMvc
                 .perform(post("/day-counter")
                         .param("day", "Saturday")
@@ -57,7 +57,7 @@ public class DayCounterControllerTest {
     }
 
     @Test
-    public void mondayPlus0() throws Exception {
+    void mondayPlus0() throws Exception {
         this.mockMvc
                 .perform(post("/day-counter")
                         .param("day", "Monday")
@@ -66,7 +66,7 @@ public class DayCounterControllerTest {
     }
 
     @Test
-    public void thursdayMin3() throws Exception {
+    void thursdayMin3() throws Exception {
         this.mockMvc
                 .perform(post("/day-counter")
                         .param("day", "Thursday")

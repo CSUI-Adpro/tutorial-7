@@ -15,20 +15,20 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class LeapYearControllerTest {
+class LeapYearControllerTest {
 
         @Autowired
         private MockMvc mockMvc;
 
         @Test
-        public void shouldShowPage() throws Exception {
+        void shouldShowPage() throws Exception {
                 this.mockMvc.perform(get("/leap-year")).andDo(print()).andExpect(status().isOk())
                                 .andExpect(view().name("leap.year/home"))
                                 .andExpect(model().attributeExists("dto"));
         }
 
         @Test
-        public void year2001() throws Exception {
+        void year2001() throws Exception {
                 this.mockMvc
                                 .perform(post("/leap-year")
                                                 .param("year", "2001"))
@@ -37,7 +37,7 @@ public class LeapYearControllerTest {
         }
 
         @Test
-        public void year0() throws Exception {
+        void year0() throws Exception {
                 this.mockMvc
                                 .perform(post("/leap-year")
                                                 .param("year", "0"))
@@ -46,7 +46,7 @@ public class LeapYearControllerTest {
         }
 
         @Test
-        public void year2004() throws Exception {
+        void year2004() throws Exception {
                 this.mockMvc
                                 .perform(post("/leap-year")
                                                 .param("year", "2004"))
@@ -55,7 +55,7 @@ public class LeapYearControllerTest {
         }
 
         @Test
-        public void year2010() throws Exception {
+        void year2010() throws Exception {
                 this.mockMvc
                                 .perform(post("/leap-year")
                                                 .param("year", "2010"))
@@ -64,7 +64,7 @@ public class LeapYearControllerTest {
         }
 
         @Test
-        public void year200() throws Exception {
+        void year200() throws Exception {
                 this.mockMvc
                                 .perform(post("/leap-year")
                                                 .param("year", "200"))
@@ -73,7 +73,7 @@ public class LeapYearControllerTest {
         }
 
         @Test
-        public void year2000() throws Exception {
+        void year2000() throws Exception {
                 this.mockMvc
                                 .perform(post("/leap-year")
                                                 .param("year", "2000"))
@@ -82,7 +82,7 @@ public class LeapYearControllerTest {
         }
 
         @Test
-        public void year2012() throws Exception {
+        void year2012() throws Exception {
                 this.mockMvc
                                 .perform(post("/leap-year")
                                                 .param("year", "2012"))
