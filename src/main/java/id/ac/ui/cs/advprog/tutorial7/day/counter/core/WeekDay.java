@@ -22,7 +22,7 @@ public enum WeekDay {
         this.day = day;
     }
 
-    public static final Map<String, WeekDay> dayMap = new HashMap<>();
+    protected static final Map<String, WeekDay> dayMap = new HashMap<>();
 
     static {
         for (WeekDay day : WeekDay.values()) {
@@ -30,4 +30,7 @@ public enum WeekDay {
         }
     }
 
+    public static WeekDay fromString(String day) {
+        return dayMap.get(day.toLowerCase());
+    }
 }

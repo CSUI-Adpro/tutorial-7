@@ -9,7 +9,7 @@ import static java.lang.Math.abs;
 public class DayCounterServiceImpl implements DayCounterService {
     @Override
     public String getWeekDay(String day, int n) {
-        WeekDay fromDayEnum = WeekDay.dayMap.get(day.toLowerCase());
+        WeekDay fromDayEnum = WeekDay.fromString(day);
 
         if (fromDayEnum == null) {
             throw new IllegalArgumentException("Invalid day: " + day);
