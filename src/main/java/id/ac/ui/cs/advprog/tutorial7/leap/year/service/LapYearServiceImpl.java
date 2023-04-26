@@ -7,7 +7,7 @@ import static id.ac.ui.cs.advprog.tutorial7.leap.year.core.YearCategory.DIVISIBL
 import static id.ac.ui.cs.advprog.tutorial7.leap.year.core.YearCategory.DIVISIBLE_BY_400;
 
 @Service
-public class lpYrsrvc_impl implements lpYr_srvc {
+public class LapYearServiceImpl implements LapYearService {
     /*
     Hello.
     Guess what!
@@ -18,7 +18,7 @@ public class lpYrsrvc_impl implements lpYr_srvc {
      */
     
     @Override
-    public String get_year_categoryAsStr(long yr) {  // yr = year
+    public String getYearCategory(long yr) {  // yr = year
         // check if the year is divisible by 4, by 100, by 400, or not divisible at all.
         YearCategory yearCategory;
         if (yr % 4 == 0){
@@ -46,13 +46,13 @@ public class lpYrsrvc_impl implements lpYr_srvc {
     
         // the reason why the year is leap/not-leap year
         // ctgr = category. This string explains why the given year is a / not-a leap year
-        String year_ctgr_stringversion = yearCategory.toString();
+        String yearCategoryString = yearCategory.toString();
     
         if (yearCategory == DIVISIBLE_BY_400){
-            year_ctgr_stringversion = "divisible by 400";
+            yearCategoryString = "divisible by 400";
         }else{
             if (yearCategory == YearCategory.DIVISIBLE_BY_100){
-                year_ctgr_stringversion = "divisible by 100";
+                yearCategoryString = "divisible by 100";
             }else{
                 // check if it is divisible by 4 or not
                 
@@ -71,14 +71,14 @@ public class lpYrsrvc_impl implements lpYr_srvc {
                 // replace strip to space
                 String temp5 = temp2.replace(temp3, temp4);
                 if (yearCategory == YearCategory.DIVISIBLE_BY_4){
-                    year_ctgr_stringversion = temp5;  // set year category string version to be
+                    yearCategoryString = temp5;  // set year category string version to be
                 }else{
-                    year_ctgr_stringversion = yearCategory.name().replace('_', ' ').toLowerCase();
+                    yearCategoryString = yearCategory.name().replace('_', ' ').toLowerCase();
                 }
             }
         }
         
         // return the result
-        return String.format("%d %s a leap year because it is %s.", yr, toBe, year_ctgr_stringversion);
+        return String.format("%d %s a leap year because it is %s.", yr, toBe, yearCategoryString);
     }
 }
