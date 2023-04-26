@@ -13,27 +13,23 @@ public class TimeCounterServiceImpl implements TimeCounterService {
         int totalMinutes = currentHours * 60 + currentMinutes;
         boolean isAdd = operation.equals("add");
 
-        String result = "";
-        if (isAdd) {
-            result = add(totalMinutes, hours, minutes);
-        } else {
-            result = subtract(totalMinutes, hours, minutes);
-        }
+        int newTotalMinutes = calculateNewTotalMinutes(totalMinutes, hours, minutes, isAdd);
+        String result = formatResult(newTotalMinutes);
         return printResult(time, hours, minutes, isAdd, result);
     }
 
-    private String add(int totalMinutes, int hours, int minutes) {
-        totalMinutes += hours * 60 + minutes;
-        int newHours = (totalMinutes / 60) % 24;
-        int newMinutes = totalMinutes % 60;
-        return String.format("%02d:%02d", newHours, newMinutes);
+    private int calculateNewTotalMinutes(int totalMinutes, int hours, int minutes, boolean isAdd) {
+        int newTotalMinutes;
+        if (isAdd) {
+            newTotalMinutes = totalMinutes + hours * 60 + minutes;
+        } else {
+            newTotalMinutes = totalMinutes - hours * 60 - minutes;
+            newTotalMinutes = (newTotalMinutes % (24 * 60)) + 24 * 60; // handle negative value
+        }
+        return newTotalMinutes;
     }
 
-    private String subtract(int totalMinutes, int hours, int minutes) {
-        totalMinutes -= hours * 60 + minutes;
-        // handle negative value
-        totalMinutes = (totalMinutes % (24 * 60)) + 24 * 60;
-
+    private String formatResult(int totalMinutes) {
         int newHours = (totalMinutes / 60) % 24;
         int newMinutes = totalMinutes % 60;
         return String.format("%02d:%02d", newHours, newMinutes);
@@ -44,37 +40,22 @@ public class TimeCounterServiceImpl implements TimeCounterService {
             return result;
         }
         String toBe = getAfterOrBefore(add);
-        String hourText = getTextHour(hours);
-        String minuteText = getTextMinute(minutes);
+        String hourText = getText(hours, "hour", "hours");
+        String minuteText = getText(minutes, "minute", "minutes");
         return String.format("%s%s%s %s is %s", hourText, minuteText, toBe, time, result);
     }
 
+    private String getText(int n, String singular, String plural) {
+        if (n == 0) {
+            return "";
+        } else if (n == 1) {
+            return String.format("%d %s ", n, singular);
+        } else {
+            return String.format("%d %s ", n, plural);
+        }
+    }
+
     private String getAfterOrBefore(boolean add) {
-        if (add) {
-            return "after";
-        }
-        return "before";
-    }
-
-    private String getTextHour(int n) {
-        switch (n) {
-            case 0:
-                return "";
-            case 1:
-                return String.format("%d hour ", n);
-            default:
-                return String.format("%d hours ", n);
-        }
-    }
-
-    private String getTextMinute(int n) {
-        switch (n) {
-            case 0:
-                return "";
-            case 1:
-                return String.format("%d minute ", n);
-            default:
-                return String.format("%d minutes ", n);
-        }
+        return add ? "after" : "before";
     }
 }

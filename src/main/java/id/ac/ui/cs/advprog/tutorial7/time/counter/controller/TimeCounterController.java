@@ -1,6 +1,6 @@
 package id.ac.ui.cs.advprog.tutorial7.time.counter.controller;
 
-import id.ac.ui.cs.advprog.tutorial7.time.counter.dto.TimeCounterDTO;
+import id.ac.ui.cs.advprog.tutorial7.time.counter.dto.TimeCounter;
 import id.ac.ui.cs.advprog.tutorial7.time.counter.service.TimeCounterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,19 +19,19 @@ public class TimeCounterController {
     @GetMapping(path = {"", "/"})
     public String getTimeCounterPage(Model model) {
         model.addAttribute("ops", new String[]{"add", "subtract"});
-        model.addAttribute("dto", new TimeCounterDTO());
+        model.addAttribute("dto", new TimeCounter());
         return "time.counter/home";
     }
 
     @PostMapping(path = {"", "/"})
-    public String postTimeCounterPage(Model model, TimeCounterDTO dto) {
+    public String postTimeCounterPage(Model model, TimeCounter dto) {
         String result = timeCounterService.calculateTime(
                 dto.getTime(),
                 dto.getHours(),
                 dto.getMinutes(),
                 dto.getOperation());
         model.addAttribute("ops", new String[]{"add", "subtract"});
-        model.addAttribute("dto", new TimeCounterDTO());
+        model.addAttribute("dto", new TimeCounter());
         model.addAttribute("result", result);
         return "time.counter/home";
     }
