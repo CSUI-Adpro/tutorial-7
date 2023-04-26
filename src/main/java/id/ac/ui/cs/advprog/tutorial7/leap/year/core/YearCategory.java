@@ -15,4 +15,21 @@ public enum YearCategory {
     public boolean isLeapYear() {
         return this.isLeapYear;
     }
+
+    @Override
+    public String toString() {
+        switch (this) {
+            case DIVISIBLE_BY_400:
+                return "divisible by 400";
+            case DIVISIBLE_BY_100:
+                return "divisible by 100";
+            case DIVISIBLE_BY_4:
+                return "divisible by 4";
+            case NOT_DIVISIBLE_BY_4:
+                return "not divisible by 4";
+            default:
+                return "unknown";
+        }
+    }
+
 }

@@ -13,7 +13,7 @@ public class LapYearServiceImpl implements LapYearService {
     public String getYearCategory(long year) {
         YearCategory yearCategory = calculateYearCategory(year);
         String toBe = yearCategory.isLeapYear() ? "is" : "isn't";
-        String yearCategoryString = getYearCategoryString(yearCategory);
+        String yearCategoryString = yearCategory.toString();
         return String.format("%d %s a leap year because it is %s.", year, toBe, yearCategoryString);
     }
 
@@ -26,21 +26,6 @@ public class LapYearServiceImpl implements LapYearService {
             return YearCategory.DIVISIBLE_BY_4;
         } else {
             return YearCategory.NOT_DIVISIBLE_BY_4;
-        }
-    }
-
-    private String getYearCategoryString(YearCategory yearCategory) {
-        switch (yearCategory) {
-            case DIVISIBLE_BY_400:
-                return "divisible by 400";
-            case DIVISIBLE_BY_100:
-                return "divisible by 100";
-            case DIVISIBLE_BY_4:
-                return "divisible by 4";
-            case NOT_DIVISIBLE_BY_4:
-                return "not divisible by 4";
-            default:
-                return "unknown";
         }
     }
 }
