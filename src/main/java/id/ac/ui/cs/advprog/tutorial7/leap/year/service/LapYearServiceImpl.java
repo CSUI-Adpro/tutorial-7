@@ -8,77 +8,39 @@ import static id.ac.ui.cs.advprog.tutorial7.leap.year.core.YearCategory.DIVISIBL
 
 @Service
 public class LapYearServiceImpl implements LapYearService {
-    /*
-    Hello.
-    Guess what!
-    I have written comments so that people can read my code easily.
-    Now I'm confident that you and all other people will be able to read my code in no time! xd
-    
-    - Code Author
-     */
-    
+
     @Override
-    public String getYearCategory(long yr) {  // yr = year
-        // check if the year is divisible by 4, by 100, by 400, or not divisible at all.
-        YearCategory yearCategory;
-        if (yr % 4 == 0){
-            if (yr % 100 == 0){
-                if (yr % 400 == 0){
-                    yearCategory = DIVISIBLE_BY_400;
-                }else{
-                    yearCategory = YearCategory.DIVISIBLE_BY_100;
-                }
-            }else{
-                yearCategory = DIVISIBLE_BY_4;
-            }
-        }else{
-            yearCategory = YearCategory.NOT_DIVISIBLE_BY_4;
-        }
-        
-        
-        var toBe = "to be determined";
-        if (yearCategory.isLeapYear()) {
-            toBe = "is";
+    public String getYearCategory(long year) {
+        YearCategory yearCategory = calculateYearCategory(year);
+        String toBe = yearCategory.isLeapYear() ? "is" : "isn't";
+        String yearCategoryString = getYearCategoryString(yearCategory);
+        return String.format("%d %s a leap year because it is %s.", year, toBe, yearCategoryString);
+    }
+
+    private YearCategory calculateYearCategory(long year) {
+        if (year % 400 == 0) {
+            return YearCategory.DIVISIBLE_BY_400;
+        } else if (year % 100 == 0) {
+            return YearCategory.DIVISIBLE_BY_100;
+        } else if (year % 4 == 0) {
+            return YearCategory.DIVISIBLE_BY_4;
         } else {
-            toBe = "isn't";
+            return YearCategory.NOT_DIVISIBLE_BY_4;
         }
-    
-    
-        // the reason why the year is leap/not-leap year
-        // ctgr = category. This string explains why the given year is a / not-a leap year
-        String yearCategoryString = yearCategory.toString();
-    
-        if (yearCategory == DIVISIBLE_BY_400){
-            yearCategoryString = "divisible by 400";
-        }else{
-            if (yearCategory == YearCategory.DIVISIBLE_BY_100){
-                yearCategoryString = "divisible by 100";
-            }else{
-                // check if it is divisible by 4 or not
-                
-                // get the name
-                String temp = yearCategory.name();
-                
-                // strip
-                Character temp3 = '_';
-                
-                // space
-                Character temp4 = ' ';
-                
-                // convert to lower case
-                String temp2 = temp.toLowerCase();
-                
-                // replace strip to space
-                String temp5 = temp2.replace(temp3, temp4);
-                if (yearCategory == YearCategory.DIVISIBLE_BY_4){
-                    yearCategoryString = temp5;  // set year category string version to be
-                }else{
-                    yearCategoryString = yearCategory.name().replace('_', ' ').toLowerCase();
-                }
-            }
+    }
+
+    private String getYearCategoryString(YearCategory yearCategory) {
+        switch (yearCategory) {
+            case DIVISIBLE_BY_400:
+                return "divisible by 400";
+            case DIVISIBLE_BY_100:
+                return "divisible by 100";
+            case DIVISIBLE_BY_4:
+                return "divisible by 4";
+            case NOT_DIVISIBLE_BY_4:
+                return "not divisible by 4";
+            default:
+                return "unknown";
         }
-        
-        // return the result
-        return String.format("%d %s a leap year because it is %s.", yr, toBe, yearCategoryString);
     }
 }
