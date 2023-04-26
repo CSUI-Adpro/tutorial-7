@@ -23,7 +23,7 @@ public class DayCounterController {
     }
 
     @GetMapping(path = {"", "/"})
-    public String getLeapYearPage(Model model) {
+    public String getDayCounterPage(Model model) {
         List<String> days = Arrays.stream(WeekDay.values())
                 .map(WeekDay::getDay)
                 .collect(Collectors.toList());
@@ -33,7 +33,7 @@ public class DayCounterController {
     }
 
     @PostMapping(path = {"", "/"})
-    public String postLeapYearPage(Model model, DayCounter dto) {
+    public String postDayCounterPage(Model model, DayCounter dto) {
         List<String> days = Arrays.stream(WeekDay.values())
                 .map(WeekDay::getDay)
                 .collect(Collectors.toList());
