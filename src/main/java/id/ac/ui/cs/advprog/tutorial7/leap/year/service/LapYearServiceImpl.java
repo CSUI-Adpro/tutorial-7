@@ -3,9 +3,6 @@ package id.ac.ui.cs.advprog.tutorial7.leap.year.service;
 import id.ac.ui.cs.advprog.tutorial7.leap.year.core.YearCategory;
 import org.springframework.stereotype.Service;
 
-import static id.ac.ui.cs.advprog.tutorial7.leap.year.core.YearCategory.DIVISIBLE_BY_4;
-import static id.ac.ui.cs.advprog.tutorial7.leap.year.core.YearCategory.DIVISIBLE_BY_400;
-
 @Service
 public class LapYearServiceImpl implements LapYearService {
 
