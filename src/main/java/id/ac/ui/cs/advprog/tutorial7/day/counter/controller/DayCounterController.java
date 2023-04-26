@@ -1,7 +1,7 @@
 package id.ac.ui.cs.advprog.tutorial7.day.counter.controller;
 
 import id.ac.ui.cs.advprog.tutorial7.day.counter.core.WeekDay;
-import id.ac.ui.cs.advprog.tutorial7.day.counter.dto.DayCounterDTO;
+import id.ac.ui.cs.advprog.tutorial7.day.counter.dto.DayCounter;
 import id.ac.ui.cs.advprog.tutorial7.day.counter.service.DayCounterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,18 +28,18 @@ public class DayCounterController {
                 .map(WeekDay::getDay)
                 .collect(Collectors.toList());
         model.addAttribute("days", days);
-        model.addAttribute("dto", new DayCounterDTO());
+        model.addAttribute("dto", new DayCounter());
         return "day.counter/home";
     }
 
     @PostMapping(path = {"", "/"})
-    public String postLeapYearPage(Model model, DayCounterDTO dto) {
+    public String postLeapYearPage(Model model, DayCounter dto) {
         List<String> days = Arrays.stream(WeekDay.values())
                 .map(WeekDay::getDay)
                 .collect(Collectors.toList());
-        String result = dayCounterService.getWeekDayAsString(dto.getDay(), dto.getN());
+        String result = dayCounterService.getWeekDay(dto.getDay(), dto.getN());
         model.addAttribute("days", days);
-        model.addAttribute("dto", new DayCounterDTO());
+        model.addAttribute("dto", new DayCounter());
         model.addAttribute("result", result);
         return "day.counter/home";
     }

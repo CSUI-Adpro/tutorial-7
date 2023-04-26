@@ -1,5 +1,5 @@
 package id.ac.ui.cs.advprog.tutorial7.day.counter.service;
 
 public interface DayCounterService {
-    String getWeekDayAsString(String day, int n);
+    String getWeekDay(String day, int n);
 }

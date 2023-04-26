@@ -8,29 +8,31 @@ import static java.lang.Math.abs;
 @Service
 public class DayCounterServiceImpl implements DayCounterService {
     @Override
-    public String getWeekDayAsString(String day, int n) {
-
+    public String getWeekDay(String day, int n) {
         WeekDay fromDayEnum = WeekDay.dayMap.get(day.toLowerCase());
-        String fromDay = fromDayEnum.getDay();
 
         if (fromDayEnum == null) {
             throw new IllegalArgumentException("Invalid day: " + day);
         }
 
-        // Calculate the n-th day after or before a certain day
-        // 7 is the number of days in a week
-        int newIndex = (fromDayEnum.ordinal() + n) % 7;
-        if (newIndex < 0) {
-            newIndex += 7;
-        }
-
+        int newIndex = calculateNewIndex(fromDayEnum, n);
         WeekDay toDayEnum = WeekDay.values()[newIndex];
-        String toDay = toDayEnum.getDay();
 
         String toBe = n < 0 ? "was" : "is";
-        final var timeToBe = n < 0 ? "ago before" : "in the future after";
+        String timeToBe = n < 0 ? "ago before" : "in the future after";
 
-        return String.format("%d day(s) %s %s %s %s.", abs(n), timeToBe, fromDay, toBe, toDay);
+        return String.format("%d day(s) %s %s %s %s.", abs(n), timeToBe, fromDayEnum.getDay(), toBe, toDayEnum.getDay());
     }
 
+    private int calculateNewIndex(WeekDay fromDayEnum, int n) {
+        int currentIndex = fromDayEnum.ordinal();
+        int numberOfDaysInAWeek = WeekDay.values().length;
+
+        int newIndex = (currentIndex + n) % numberOfDaysInAWeek;
+        if (newIndex < 0) {
+            newIndex += numberOfDaysInAWeek;
+        }
+
+        return newIndex;
+    }
 }
