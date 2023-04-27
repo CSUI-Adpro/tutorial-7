@@ -8,8 +8,8 @@ variables:
   GCP_STATIC_IP: $GCP_STATIC_IP
 
 stages:
-  - build
-  - test
+#  - build
+#  - test
   - publish
   - deploy
 
