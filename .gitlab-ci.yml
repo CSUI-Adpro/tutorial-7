@@ -48,7 +48,8 @@ Publish:
   stage: publish
   image: docker:latest
   services:
-    - docker:dind
+    - name: docker:dind
+      alias: docker
   dependencies:
     - Build
   before_script:
