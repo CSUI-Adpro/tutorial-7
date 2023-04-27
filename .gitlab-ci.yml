@@ -13,8 +13,8 @@ stages:
   - publish
   - deploy
 
-Publish:
-  stage: publish
+Build:
+  stage: build
   image: gradle:7.6-jdk17
   before_script:
     - echo `pwd`
@@ -44,8 +44,8 @@ Test:
     - gradle check --info --stacktrace
     - gradle test jacocoTestReport sonarqube
 
-Build:
-  stage: build
+Publish:
+  stage: publish
   image: docker:latest
   services:
     - name: docker:dind
@@ -54,6 +54,8 @@ Build:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
+  dependencies:
+    - Build
   before_script:
     - echo $DOCKER_PASSWORD| docker login -u $REGISTRY_USER --password-stdin docker.io
   script:
