@@ -14,7 +14,7 @@ stages:
   - deploy
 
 Publish:
-  stage: build
+  stage: publish
   image: gradle:7.6-jdk17
   before_script:
     - echo `pwd`
@@ -45,7 +45,7 @@ Test:
     - gradle test jacocoTestReport sonarqube
 
 Build:
-  stage: publish
+  stage: build
   image: docker:latest
   services:
     - name: docker:dind
