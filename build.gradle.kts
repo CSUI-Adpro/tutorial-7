@@ -2,6 +2,7 @@ plugins {
     java
     id("org.springframework.boot") version "2.7.12-SNAPSHOT"
     id("io.spring.dependency-management") version "1.0.15.RELEASE"
+    id("org.sonarqube") version "3.5.0.2730"
 }
 
 group = "id.ac.ui.cs.advprog"
@@ -32,4 +33,12 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "mario-adpro-tutorial-7")
+        property("sonar.organization", "mario-adpro")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
 }
