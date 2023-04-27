@@ -1,4 +1,4 @@
-FROM gradle:jdk11-alpine
+FROM gradle:7.6-jdk17
 
 WORKDIR /app
 COPY ./build/libs/tutorial-7-0.0.1-SNAPSHOT.jar /app
