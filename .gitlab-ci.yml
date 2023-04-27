@@ -42,7 +42,7 @@ Test:
     - export SPRING_PROFILES_ACTIVE=test
   script:
     - gradle check --info --stacktrace
-    - gradle test
+    - gradle test jacocoTestReport sonarqube
 
 Publish:
   stage: publish
