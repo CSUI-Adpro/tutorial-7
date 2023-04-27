@@ -8,10 +8,43 @@ variables:
   GCP_STATIC_IP: $GCP_STATIC_IP
 
 stages:
+  - build
+  - test
   - publish
   - deploy
 
 Publish:
+  stage: build
+  image: gradle:7.6-jdk17
+  before_script:
+    - echo `pwd`
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+  script:
+    - gradle wrapper
+    - ./gradlew assemble
+    - ls
+  artifacts:
+    when: always
+    paths:
+      - build/libs/*.jar
+    expire_in: 1 week
+
+Test:
+  stage: test
+  image: gradle:7.6-jdk17
+  dependencies:
+    - Build
+  services:
+    - "postgres:latest"
+  before_script:
+    - echo `pwd`
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+    - export SPRING_PROFILES_ACTIVE=test
+  script:
+    - gradle check --info --stacktrace
+    - gradle test jacocoTestReport sonarqube
+
+Build:
   stage: publish
   image: docker:latest
   services:
@@ -21,8 +54,6 @@ Publish:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
-  dependencies:
-    - Build
   before_script:
     - echo $DOCKER_PASSWORD| docker login -u $REGISTRY_USER --password-stdin docker.io
   script:
